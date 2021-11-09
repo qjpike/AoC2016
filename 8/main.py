@@ -22,6 +22,7 @@ for i in dat:
         amt = int(i.split()[-1])
         field[row] = field[row][amt:] + field[row][:amt]
     elif i.startswith("rotate column"):
+        # use numpy to transpose field, rotate corresponding "column", transpose again
         col = int(i.split("=")[1].split()[0])
         amt = int(i.split()[-1])
         print("rotate col " + str(col) + " " + str(amt))
