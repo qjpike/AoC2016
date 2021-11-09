@@ -25,4 +25,13 @@ for i in dat:
         # use numpy to transpose field, rotate corresponding "column", transpose again
         col = int(i.split("=")[1].split()[0])
         amt = int(i.split()[-1])
-        print("rotate col " + str(col) + " " + str(amt))
+        field = [[row[i] for row in field] for i in range(len(field[0]))]
+        field[col] = field[col][amt:] + field[col][:amt]
+        field = [[row[i] for row in field] for i in range(len(field[0]))]
+
+count = 0
+for i in field:
+    for j in i:
+        count += j
+
+print("1: " + str(count))
