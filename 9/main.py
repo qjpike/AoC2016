@@ -1,22 +1,36 @@
 import re
 
 f = open("input.txt")
-dat = [i.strip() for i in f.readlines()]
+dat = f.read().strip()
 
 uncomps = []
-for i in dat:
-    outp = ''
-    s = i
-    if "(" not in s:
-        uncomps.append(s)
+
+len = 0
+ptr = 0
+while ptr < dat.__len__():
+    if dat[ptr] != "(":
+        len += 1
     else:
-        outp += s[:s.index("(")]
-        ptr = s.index(")")
+        chrs, times = dat[ptr + 1:dat[ptr + 1:].index(")") + ptr + 1].split("x")
+        len += int(chrs) * int(times)
+        ptr += int(chrs) + dat[ptr :].index(")")
+    ptr += 1
 
+print("1: " + str(len))
 
-        print(outp)
-        print(s[s.rindex("(")+1:ptr].split("x"))
+weights = [1]*dat.__len__()
+len = 0
+ptr = 0
 
+#part 2 doesn't work.
+while ptr < dat.__len__():
+    if dat[ptr] != "(":
+        len += weights[ptr]
+        ptr += 1
+    else:
+        chrs, times = dat[ptr + 1:dat[ptr + 1:].index(")") + ptr + 1].split("x")
+        ptr += dat[ptr :].index(")") + 1
+        for i in range(int(chrs)):
+            weights[ptr+i] *= int(times)
 
-
-print(uncomps)
+print("2: " + str(len))
